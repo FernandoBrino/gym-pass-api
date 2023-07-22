@@ -56,6 +56,6 @@ describe("Register Service", () => {
       password: "123456",
     });
 
-    expect(user.id).toEqual(expect.any(String));
+    await expect(user.id).toEqual(expect.any(String));
   });
 });
