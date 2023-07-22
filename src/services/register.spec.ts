@@ -7,7 +7,7 @@ import { UserAlreadyExistsError } from "./errors/user-already-exists-error";
 // Unit testing
 
 describe("Register Service", () => {
-  it("should hash user passwor upon registration", async () => {
+  it("should hash user password upon registration", async () => {
     const usersRepository = new InMemoryUsersRepository();
     const registerService = new RegisterService(usersRepository);
 
@@ -37,7 +37,7 @@ describe("Register Service", () => {
       password: "123456",
     });
 
-    expect(() =>
+    await expect(() =>
       registerService.execute({
         name: "John Doe",
         email,
@@ -56,6 +56,6 @@ describe("Register Service", () => {
       password: "123456",
     });
 
-    await expect(user.id).toEqual(expect.any(String));
+    expect(user.id).toEqual(expect.any(String));
   });
 });
