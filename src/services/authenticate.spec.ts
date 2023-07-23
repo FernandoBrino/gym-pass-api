@@ -1,16 +1,19 @@
-import { expect, describe, it } from "vitest";
+import { expect, describe, it, beforeEach } from "vitest";
 import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
 import { AuthenticateService } from "./authenticate";
 import { hash } from "bcryptjs";
 import { InvalidCredentialsError } from "./errors/invalid-credentials-error";
 
-// Unit testing
+let usersRepository: InMemoryUsersRepository;
+let sut: AuthenticateService;
 
 describe("Authenticate Service", () => {
-  it("should be able to authenticate ", async () => {
-    const usersRepository = new InMemoryUsersRepository();
-    const sut = new AuthenticateService(usersRepository);
+  beforeEach(() => {
+    usersRepository = new InMemoryUsersRepository();
+    sut = new AuthenticateService(usersRepository);
+  });
 
+  it("should be able to authenticate ", async () => {
     // sut -> pattern called system under test, its the main entity that is being tested;
 
     await usersRepository.create({
@@ -28,9 +31,6 @@ describe("Authenticate Service", () => {
   });
 
   it("should not be able to authenticate with wrong e-mail", async () => {
-    const usersRepository = new InMemoryUsersRepository();
-    const sut = new AuthenticateService(usersRepository);
-
     expect(() =>
       sut.execute({
         email: "johndoe@example.com",
@@ -40,9 +40,6 @@ describe("Authenticate Service", () => {
   });
 
   it("should not be able to authenticate with wrong password", async () => {
-    const usersRepository = new InMemoryUsersRepository();
-    const sut = new AuthenticateService(usersRepository);
-
     await usersRepository.create({
       name: "John Doe",
       email: "johndoe@example.com",
