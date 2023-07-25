@@ -19,8 +19,8 @@ describe("Get User Profile Service", () => {
       title: "JavaScript Gym",
       description: "",
       phone: "",
-      latitude: new Decimal(0),
-      longitude: new Decimal(0),
+      latitude: new Decimal(-23.9675882),
+      longitude: new Decimal(-46.3912777),
     });
 
     vi.useFakeTimers();
@@ -83,5 +83,25 @@ describe("Get User Profile Service", () => {
     });
 
     expect(checkIn.id).toEqual(expect.any(String));
+  });
+
+  it("should not be able to check in on distant gym", async () => {
+    gymsRepository.items.push({
+      id: "gym-02",
+      title: "JavaScript Gym",
+      description: "",
+      phone: "",
+      latitude: new Decimal(-23.9128684),
+      longitude: new Decimal(-46.4374383),
+    });
+
+    await expect(() =>
+      sut.execute({
+        gymId: "gym-02",
+        userId: "user-01",
+        userLatitude: -23.9675882,
+        userLongitude: -46.3912777,
+      })
+    ).rejects.toBeInstanceOf(Error);
   });
 });
