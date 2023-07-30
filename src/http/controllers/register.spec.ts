@@ -1,3 +1,3 @@
-import { test } from "node:test";
+import { test } from "vitest";
 
-test("ok", () => {});
+test("ok", async () => {});
