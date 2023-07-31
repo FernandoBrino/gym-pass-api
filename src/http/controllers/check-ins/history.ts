@@ -1,5 +1,4 @@
 import { makeFetchUserCheckInsHistoryService } from "@/services/factories/make-fetch-user-check-ins-history-service";
-import { makeSearchGymsService } from "@/services/factories/make-search-gyms-service";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { z } from "zod";
 
