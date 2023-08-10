@@ -2,8 +2,6 @@ name: Run E2E Tests
 
 on:
   pull_request:
-    branches:
-        - main  # Adjust the branch name as needed
 
 jobs:
   run-e2e-tests:
